@@ -2,7 +2,7 @@
 
 from flask import Blueprint, render_template, redirect, url_for
 from flask_login import login_required
-from app.models import PolozkaZasoby, Kategorie # Ujisti se, že je Kategorie importována
+from app.models import PolozkaZasoby, Kategorie
 
 main_bp = Blueprint('main', __name__)
 
@@ -15,7 +15,7 @@ def low_stock():
     # Dotaz: Načte položky, kde je množství menší nebo rovno minimu
     dochazejici_polozky = PolozkaZasoby.query.join(Kategorie).filter(
         PolozkaZasoby.mnozstvi_v_baleni <= PolozkaZasoby.minimum_pro_upozorneni
-    ).order_by(Kategorie.nazev, PolozkaZasoby.nazev).all() # <-- ZDE JE ZMĚNA (přidáno .join(Kategorie))
+    ).order_by(Kategorie.nazev, PolozkaZasoby.nazev).all()
 
     return render_template('inventory/low_stock.html', 
                            title='Docházející zásoby', 
@@ -26,7 +26,6 @@ def low_stock():
 def all_inventory():
     """Výpis všech položek v domácnosti."""
     
-    # ZDE JE TAKÉ ZMĚNA (přidáno .join(Kategorie))
     vsechny_polozky = PolozkaZasoby.query.join(Kategorie).order_by(Kategorie.nazev, PolozkaZasoby.nazev).all()
     
     return render_template('inventory/list.html', 

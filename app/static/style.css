@@ -116,13 +116,6 @@ nav a:hover::after {
   border-radius: var(--radius);
   padding: 2rem;
   box-shadow: var(--shadow);
-  transition: all 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--glow), var(--shadow);
-  border-color: rgba(99, 102, 241, 0.3);
 }
 
 /* Grid Layouts */
@@ -402,6 +395,138 @@ tbody tr:hover {
   }
 }
 
+/* Category Links with Colors */
+.category-link {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 1px solid;
+}
+
+/* Category Color Variants */
+.cat-blue {
+  background: rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+  border-color: rgba(59, 130, 246, 0.4);
+}
+.cat-blue:hover {
+  background: rgba(59, 130, 246, 0.3);
+  color: #bfdbfe;
+}
+
+.cat-green {
+  background: rgba(34, 197, 94, 0.2);
+  color: #86efac;
+  border-color: rgba(34, 197, 94, 0.4);
+}
+.cat-green:hover {
+  background: rgba(34, 197, 94, 0.3);
+  color: #bbf7d0;
+}
+
+.cat-purple {
+  background: rgba(168, 85, 247, 0.2);
+  color: #d8b4fe;
+  border-color: rgba(168, 85, 247, 0.4);
+}
+.cat-purple:hover {
+  background: rgba(168, 85, 247, 0.3);
+  color: #e9d5ff;
+}
+
+.cat-orange {
+  background: rgba(249, 115, 22, 0.2);
+  color: #fdba74;
+  border-color: rgba(249, 115, 22, 0.4);
+}
+.cat-orange:hover {
+  background: rgba(249, 115, 22, 0.3);
+  color: #fed7aa;
+}
+
+.cat-pink {
+  background: rgba(236, 72, 153, 0.2);
+  color: #f9a8d4;
+  border-color: rgba(236, 72, 153, 0.4);
+}
+.cat-pink:hover {
+  background: rgba(236, 72, 153, 0.3);
+  color: #fbcfe8;
+}
+
+.cat-cyan {
+  background: rgba(6, 182, 212, 0.2);
+  color: #67e8f9;
+  border-color: rgba(6, 182, 212, 0.4);
+}
+.cat-cyan:hover {
+  background: rgba(6, 182, 212, 0.3);
+  color: #a5f3fc;
+}
+
+.cat-red {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  border-color: rgba(239, 68, 68, 0.4);
+}
+.cat-red:hover {
+  background: rgba(239, 68, 68, 0.3);
+  color: #fecaca;
+}
+
+.cat-yellow {
+  background: rgba(234, 179, 8, 0.2);
+  color: #fde047;
+  border-color: rgba(234, 179, 8, 0.4);
+}
+.cat-yellow:hover {
+  background: rgba(234, 179, 8, 0.3);
+  color: #fef08a;
+}
+
+/* Category Badge */
+.category-badge {
+  display: inline-block;
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid;
+}
+
+.category-badge:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+/* Action Buttons in Table */
+td .btn {
+  min-width: 90px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+}
+
+td form {
+  margin: 0;
+  display: inline-block;
+}
+
+td .action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
 /* Utility Classes */
 .text-center { text-align: center; }
 .mt-1 { margin-top: 1rem; }
@@ -411,5 +536,5 @@ tbody tr:hover {
 .flex { display: flex; }
 .items-center { align-items: center; }
 .justify-between { justify-content: space-between; }
-.gap-1 { gap: 1rem; }
+.gap-1 { gap: 0.5rem; }
 .gap-2 { gap: 2rem; }

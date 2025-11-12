@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, FloatField, SelectField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, FloatField, SelectField, ColorField
 from wtforms.validators import DataRequired, EqualTo, ValidationError, Length, NumberRange
 from app.models import User, Kategorie
 
@@ -50,4 +50,6 @@ class InventoryForm(FlaskForm):
 
 class KategorieForm(FlaskForm):
     nazev = StringField('Název nové kategorie', validators=[DataRequired(), Length(max=100)])
+    color_hex = ColorField('Barva kategorie', default='#94a3b8')
+    
     submit = SubmitField('Přidat kategorii')

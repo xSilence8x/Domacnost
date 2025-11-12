@@ -3,37 +3,59 @@
 {% block content %}
     <h2>{{ title }}</h2>
 
-    <h3>Přidat novou kategorii</h3>
-    <form method="POST" action="{{ url_for('inventory.manage_categories') }}">
-        {{ form.hidden_tag() }}
-        <div class="form-field">
-            {{ form.nazev.label }}<br>
-            {{ form.nazev(size=30) }}
-            {% for error in form.nazev.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
-            {{ form.submit() }}
+    <div class="card">
+        
+        <div>
+            <h3>Přidat novou kategorii</h3>
+            <form method="POST" action="{{ url_for('inventory.manage_categories') }}">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.nazev.label }}
+                    {{ form.nazev() }}
+                    </div>
+                
+                <div class="form-group">
+                    {{ form.color_hex.label }}<br>
+                    {{ form.color_hex(style="width: 100px; height: 40px;") }}
+                </div>
+                
+                {{ form.submit(class="btn btn-primary mt-1") }}
+            </form>
         </div>
-    </form>
-    
-    <hr>
-    
-    <h3>Existující kategorie</h3>
-    {% if kategorie_list %}
-        <ul>
-        {% for kategorie in kategorie_list %}
-            <li>
-                <strong>{{ kategorie.nazev }}</strong> ({{ kategorie.polozky.count() }} položek)
-                {% if kategorie.polozky.count() == 0 %}
-                    <form method="POST" action="{{ url_for('inventory.delete_category', cat_id=kategorie.id) }}" style="display:inline; margin-left: 15px;">
-                        <button type="submit" onclick="return confirm('Opravdu smazat kategorii?')" style="color: red; border: none; background: none; cursor: pointer;">Smazat</button>
-                    </form>
-                {% else %}
-                    <span style="color: gray; margin-left: 15px;">(Smazání zakázáno – obsahuje položky)</span>
-                {% endif %}
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>Nemáte zatím žádné kategorie.</p>
-    {% endif %}
 
-{% endblock %}
+        <hr style="border-color: var(--border); margin: 2rem 0;">
+
+        <div>
+            <h3>Existující kategorie</h3>
+            {% if kategorie_list %}
+                <ul style="list-style: none; padding-left: 0;">
+                {% for kategorie in kategorie_list %}
+                    <li style="background: var(--bg-main); padding: 1rem; border-radius: 12px; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong>{{ kategorie.nazev }}</strong>
+                            <span class="text-secondary">({{ kategorie.polozky.count() }} položek)</span>
+                        </div>
+                        
+                        <div>
+                            <a href="{{ url_for('inventory.edit_category', cat_id=kategorie.id) }}" class="btn btn-secondary" style="padding: 0.5rem 1rem;">
+                                Upravit
+                            </a>
+                        {% if kategorie.polozky.count() == 0 %}
+                            <form method="POST" action="{{ url_for('inventory.delete_category', cat_id=kategorie.id) }}" style="display:inline;">
+                                <button type="submit" onclick="return confirm('Opravdu smazat kategorii?')" class="btn btn-danger" style="padding: 0.5rem 1rem;">
+                                    Smazat
+                                </button>
+                            </form>
+                        {% else %}
+                            <span class="text-secondary" style="font-size: 0.875rem;">(Nelze smazat)</span>
+                        {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-secondary">Nemáte zatím žádné kategorie.</p>
+            {% endif %}
+        </div>
+
+    </div> {% endblock %}

@@ -23,6 +23,7 @@ class User(UserMixin, db.Model):
 class Kategorie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nazev = db.Column(db.String(100), unique=True, nullable=False)
+    color_hex = db.Column(db.String(7), nullable=False, default='#94a3b8')
     
     polozky = db.relationship('PolozkaZasoby', backref='kategorie', lazy='dynamic')
 

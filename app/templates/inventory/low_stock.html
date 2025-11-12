@@ -4,36 +4,64 @@
     <h2>{{ title }} ({{ items|length }})</h2>
     
     {% if items %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Kategorie</th>
-                    <th>Název produktu</th>
-                    <th>Stav</th>
-                    <th>Množství (0-1)</th>
-                    <th>Popis balení</th>
-                    <th>Akce</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in items %}
-                    <tr class="low-stock">
-                        <td>{{ item.kategorie.nazev }}</td>
-                        <td>{{ item.nazev }}</td>
-                        <td><span style="font-weight: bold; color: red;">{{ item.get_stav() }}</span></td>
-                        <td>{{ "%.2f"|format(item.mnozstvi_v_baleni) }} / {{ "%.2f"|format(item.minimum_pro_upozorneni) }}</td>
-                        <td>{{ item.popis_balení or 'Není vyplněn' }}</td>
-                        <td>
-                            <a href="{{ url_for('inventory.edit_item', item_id=item.id) }}">Upravit stav</a>
-                        </td>
+        <div class="card">
+            <p class="text-secondary mb-1">Toto je váš nákupní seznam – položky, jejichž množství kleslo pod vámi nastavený limit.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kategorie</th>
+                        <th>Název produktu</th>
+                        <th>Stav</th>
+                        <th>Množství (Limit)</th>
+                        <th>Popis balení</th>
+                        <th>Akce</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>
+                                <a href="{{ url_for('main.kategorie_detail', cat_id=item.kategorie_id) }}" 
+                                   class="category-badge"
+                                   style="background-color: {{ item.kategorie.color_hex }}20; 
+                                          color: {{ item.kategorie.color_hex }}; 
+                                          border-color: {{ item.kategorie.color_hex }}80;">
+                                    {{ item.kategorie.nazev }}
+                                </a>
+                            </td>
+                            <td><strong>{{ item.nazev }}</strong></td>
+                            
+                            <td>
+                                <span class="badge badge-low">
+                                    {{ item.get_stav() }}
+                                </span>
+                            </td>
+                            
+                            <td>
+                                <strong>{{ "%.2f"|format(item.mnozstvi_v_baleni) }}</strong> / 
+                                <span class="text-secondary">{{ "%.2f"|format(item.minimum_pro_upozorneni) }}</span>
+                            </td>
+                            
+                            <td>{{ item.popis_balení or '--' }}</td>
+                            
+                            <td>
+                                <a href="{{ url_for('inventory.edit_item', item_id=item.id) }}" class="btn btn-secondary">
+                                    Upravit stav
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% else %}
-        <p>Všechny zásoby jsou v pořádku! Nemáte žádné položky, které by docházely. 👍</p>
+        <div class="alert alert-success">
+            Všechny zásoby jsou v pořádku! Nemáte žádné položky, které by docházely. 👍
+        </div>
         {% if current_user.is_authenticated %}
-            <p><a href="{{ url_for('inventory.add_item') }}">Přidat první zásobu</a></p>
+            <p class="mt-2 text-center">
+                <a href="{{ url_for('inventory.add_item') }}" class="btn btn-primary">Přidat první zásobu</a>
+            </p>
         {% endif %}
     {% endif %}
 

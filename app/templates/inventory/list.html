@@ -19,7 +19,15 @@
                 <tbody>
                     {% for item in items %}
                         <tr>
-                            <td><a href="{{ url_for('main.kategorie_detail', cat_id=item.kategorie_id) }}">{{ item.kategorie.nazev }}</a></td>
+                            <td>
+                                <a href="{{ url_for('main.kategorie_detail', cat_id=item.kategorie_id) }}" 
+                                   class="category-badge"
+                                   style="background-color: {{ item.kategorie.color_hex }}20; 
+                                          color: {{ item.kategorie.color_hex }}; 
+                                          border-color: {{ item.kategorie.color_hex }}80;">
+                                    {{ item.kategorie.nazev }}
+                                </a>
+                            </td>
                             <td><strong>{{ item.nazev }}</strong></td>
                             
                             <td>
@@ -30,13 +38,15 @@
                             
                             <td>{{ "%.2f"|format(item.minimum_pro_upozorneni) }}</td>
                             <td>{{ item.popis_balení or '--' }}</td>
-                            <td class="flex gap-1">
-                                <a href="{{ url_for('inventory.edit_item', item_id=item.id) }}" class="btn btn-secondary">Upravit</a>
-                                <form method="POST" action="{{ url_for('inventory.delete_item', item_id=item.id) }}" style="display:inline;">
-                                    <button type="submit" onclick="return confirm('Opravdu chcete smazat tuto položku?')" class="btn btn-danger">
-                                        Smazat
-                                    </button>
-                                </form>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="{{ url_for('inventory.edit_item', item_id=item.id) }}" class="btn btn-secondary">Upravit</a>
+                                    <form method="POST" action="{{ url_for('inventory.delete_item', item_id=item.id) }}">
+                                        <button type="submit" onclick="return confirm('Opravdu chcete smazat tuto položku?')" class="btn btn-danger">
+                                            Smazat
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     {% endfor %}

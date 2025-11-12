@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from app import db
 from app.models import PolozkaZasoby, Kategorie
@@ -79,7 +79,7 @@ def manage_categories():
     form = KategorieForm()
     
     if form.validate_on_submit():
-        kategorie = Kategorie(nazev=form.nazev.data)
+        kategorie = Kategorie(nazev=form.nazev.data, color_hex=form.color_hex.data)
         db.session.add(kategorie)
         db.session.commit()
         flash(f'Kategorie "{kategorie.nazev}" byla přidána.', 'success')
@@ -90,6 +90,27 @@ def manage_categories():
                            title='Správa kategorií', 
                            form=form, 
                            kategorie_list=kategorie_list)
+
+
+@inventory_bp.route('/kategorie/edit/<int:cat_id>', methods=['GET', 'POST'])
+@login_required
+def edit_category(cat_id):
+    """Editování kategorie."""
+    kategorie = Kategorie.query.get_or_404(cat_id)
+    form = KategorieForm(obj=kategorie)
+
+    if form.validate_on_submit():
+        kategorie.nazev = form.nazev.data
+        kategorie.color_hex = form.color_hex.data
+        db.session.commit()
+        flash(f'Kategorie "{kategorie.nazev}" byla aktualizována.', 'success')
+        return redirect(url_for('inventory.manage_categories'))
+    
+    return render_template('inventory/edit_category.html',
+                           title='Upravit kategorii',
+                           form=form,
+                           kategorie=kategorie)
+
 
 @inventory_bp.route('/kategorie/delete/<int:cat_id>', methods=['POST'])
 @login_required
