@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Přihlášení</h2>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }} 
+        
+        <div class="form-field">
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}<br>
+            {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        
+        <div class="form-field">
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}<br>
+            {% for error in form.password.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        
+        <div class="form-field">
+            {{ form.remember_me() }} {{ form.remember_me.label }}
+        </div>
+        
+        {{ form.submit() }}
+    </form>
+    <p>Nový uživatel? <a href="{{ url_for('auth.register') }}">Klikněte pro registraci!</a></p>
+{% endblock %}

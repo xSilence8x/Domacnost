@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ title }} ({{ items|length }})</h2>
+    
+    {% if items %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Kategorie</th>
+                    <th>Název produktu</th>
+                    <th>Stav</th>
+                    <th>Množství (0-1)</th>
+                    <th>Popis balení</th>
+                    <th>Akce</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    <tr class="low-stock">
+                        <td>{{ item.kategorie.nazev }}</td>
+                        <td>{{ item.nazev }}</td>
+                        <td><span style="font-weight: bold; color: red;">{{ item.get_stav() }}</span></td>
+                        <td>{{ "%.2f"|format(item.mnozstvi_v_baleni) }} / {{ "%.2f"|format(item.minimum_pro_upozorneni) }}</td>
+                        <td>{{ item.popis_balení or 'Není vyplněn' }}</td>
+                        <td>
+                            <a href="{{ url_for('inventory.edit_item', item_id=item.id) }}">Upravit stav</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Všechny zásoby jsou v pořádku! Nemáte žádné položky, které by docházely. 👍</p>
+        {% if current_user.is_authenticated %}
+            <p><a href="{{ url_for('inventory.add_item') }}">Přidat první zásobu</a></p>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

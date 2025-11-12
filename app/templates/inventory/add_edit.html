@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ title }}</h2>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        
+        <div class="form-field">
+            {{ form.nazev.label }}<br>
+            {{ form.nazev(size=50) }}
+            {% for error in form.nazev.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        
+        <div class="form-field">
+            {{ form.kategorie.label }}<br>
+            {{ form.kategorie() }}
+        </div>
+
+        <div class="form-field">
+            {{ form.mnozstvi_v_baleni.label }}<br>
+            {{ form.mnozstvi_v_baleni(size=5) }}
+            <p style="font-size: small; color: #666;">1.0 = celé, 0.5 = polovina, 0.0 = spotřebováno.</p>
+            {% for error in form.mnozstvi_v_baleni.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+
+        <div class="form-field">
+            {{ form.minimum_pro_upozorneni.label }}<br>
+            {{ form.minimum_pro_upozorneni(size=5) }}
+            <p style="font-size: small; color: #666;">Při jaké hodnotě (např. 0.25) se má položka označit jako docházející.</p>
+            {% for error in form.minimum_pro_upozorneni.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+
+        <div class="form-field">
+            {{ form.popis_baleni.label }}<br>
+            {{ form.popis_baleni(size=50) }}
+            {% for error in form.popis_baleni.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        
+        {{ form.submit() }}
+    </form>
+{% endblock %}

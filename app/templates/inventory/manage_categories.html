@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ title }}</h2>
+
+    <h3>Přidat novou kategorii</h3>
+    <form method="POST" action="{{ url_for('inventory.manage_categories') }}">
+        {{ form.hidden_tag() }}
+        <div class="form-field">
+            {{ form.nazev.label }}<br>
+            {{ form.nazev(size=30) }}
+            {% for error in form.nazev.errors %}<span style="color: red;">[{{ error }}]</span>{% endfor %}
+            {{ form.submit() }}
+        </div>
+    </form>
+    
+    <hr>
+    
+    <h3>Existující kategorie</h3>
+    {% if kategorie_list %}
+        <ul>
+        {% for kategorie in kategorie_list %}
+            <li>
+                <strong>{{ kategorie.nazev }}</strong> ({{ kategorie.polozky.count() }} položek)
+                {% if kategorie.polozky.count() == 0 %}
+                    <form method="POST" action="{{ url_for('inventory.delete_category', cat_id=kategorie.id) }}" style="display:inline; margin-left: 15px;">
+                        <button type="submit" onclick="return confirm('Opravdu smazat kategorii?')" style="color: red; border: none; background: none; cursor: pointer;">Smazat</button>
+                    </form>
+                {% else %}
+                    <span style="color: gray; margin-left: 15px;">(Smazání zakázáno – obsahuje položky)</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nemáte zatím žádné kategorie.</p>
+    {% endif %}
+
+{% endblock %}
