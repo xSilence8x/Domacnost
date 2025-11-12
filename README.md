@@ -1,4 +1,6 @@
 # Domácnost/Household
 Manage your household inventory (groceries, supplies, cosmetics) with stock tracking and a low-stock shopping list.
 
-<img width="1792" height="807" alt="image" src="https://github.com/user-attachments/assets/69e6bf29-a22c-4a25-a80a-f859708f15bc" />
+<img width="1772" height="866" alt="image" src="https://github.com/user-attachments/assets/d169d4c3-ff80-4ad4-92d3-3af1651ac3ac" />
+
+This project is a "vibe coding" project, created to explore the strength of AI models.
