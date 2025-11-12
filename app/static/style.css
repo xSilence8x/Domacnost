@@ -379,6 +379,8 @@ tbody tr:hover {
   display: flex;
   align-items: center;
   gap: 1rem;
+  max-width: 100%;
+  word-wrap: break-word;
 }
 
 .alert-info {
@@ -493,7 +495,7 @@ tbody tr:hover {
     border-bottom: 1px solid var(--border);
   }
   
-  .mobile-card-row:last-child {
+  .mobile-card-row:last-of-type {
     border-bottom: none;
   }
   
@@ -512,7 +514,6 @@ tbody tr:hover {
     gap: 0.5rem;
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid var(--border);
   }
   
   .mobile-card-actions .btn {
@@ -595,6 +596,19 @@ footer {
 @keyframes heartbeat {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.1); }
+}
+
+/* Form Container */
+.form-container {
+  max-width: 500px !important;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.form-container .card {
+  width: 100%;
+  max-width: 100%;
 }
 
 /* Category Links with Colors */

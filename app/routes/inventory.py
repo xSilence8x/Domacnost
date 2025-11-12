@@ -29,7 +29,7 @@ def add_item():
         db.session.add(item)
         db.session.commit()
         flash(f'Položka "{item.nazev}" byla přidána do zásob.', 'success')
-        return redirect(url_for('main.low_stock'))
+        return redirect(url_for('main.all_inventory'))
 
     return render_template('inventory/add_edit.html', title='Přidat zásobu', form=form)
 
@@ -52,7 +52,7 @@ def edit_item(item_id):
         
         db.session.commit()
         flash(f'Položka "{item.nazev}" byla aktualizována.', 'success')
-        return redirect(url_for('main.low_stock'))
+        return redirect(url_for('main.all_inventory'))
     
     # Předvyplnění formuláře při GET požadavku
     elif request.method == 'GET':

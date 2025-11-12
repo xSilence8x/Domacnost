@@ -39,20 +39,23 @@
         </nav>
     </header>
 
-    <main class="container">
-        
+    <main>
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
-                {% for category, message in messages %}
-                    {% set category_map = {'success': 'alert-success', 'danger': 'alert-warning', 'info': 'alert-info'} %}
-                    <div class="alert {{ category_map.get(category, 'alert-info') }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
+                <div style="max-width: 600px; margin: 0 auto; padding: 1rem 1rem 0 1rem;">
+                    {% for category, message in messages %}
+                        {% set category_map = {'success': 'alert-success', 'danger': 'alert-warning', 'info': 'alert-info'} %}
+                        <div class="alert {{ category_map.get(category, 'alert-info') }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
             {% endif %}
         {% endwith %}
 
-        {% block content %}{% endblock %}
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
     </main>
 
     <footer>
@@ -63,7 +66,7 @@
             <div class="footer-team">
                 <span class="footer-badge">Claude</span>
                 <span class="footer-badge">Gemini</span>
-                <a href="https://mar6wen8.github.io/MarWen" target="_blank" class="footer-badge">Marwen Team</a>
+                <a href="https://mar6wen8.github.io/MarWen" target="_blank" class="footer-badge">MarWen Team</a>
             </div>
             <div class="footer-text">
                 © 2025 Domácnost • Správa zásob pro vaši domácnost

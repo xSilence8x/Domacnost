@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, FloatField, SelectField, ColorField
-from wtforms.validators import DataRequired, EqualTo, ValidationError, Length, NumberRange
+from wtforms.validators import DataRequired, EqualTo, ValidationError, Length, NumberRange, InputRequired
 from app.models import User, Kategorie
 
 # --- AUTENTIZACE FORMULÁŘE ---
@@ -33,14 +33,14 @@ class InventoryForm(FlaskForm):
     # --- ZMĚNA ZDE ---
     mnozstvi_v_baleni = FloatField(
         'Celkové množství (např. 3.0 = 3 balení, 0.5 = půl balení)', 
-        validators=[DataRequired(), NumberRange(min=0.0, message="Hodnota musí být nezáporná")], 
+        validators=[InputRequired(), NumberRange(min=0.0, message="Hodnota musí být nezáporná")], 
         default=1.0
     )
     
     # --- A ZMĚNA ZDE ---
     minimum_pro_upozorneni = FloatField(
         'Limit docházení (např. 1.0)', 
-        validators=[DataRequired(), NumberRange(min=0.0, message="Hodnota musí být nezáporná")],
+        validators=[InputRequired(), NumberRange(min=0.0, message="Hodnota musí být nezáporná")],
         default=0.25
     )
     
@@ -51,5 +51,5 @@ class InventoryForm(FlaskForm):
 class KategorieForm(FlaskForm):
     nazev = StringField('Název nové kategorie', validators=[DataRequired(), Length(max=100)])
     color_hex = ColorField('Barva kategorie', default='#94a3b8')
-    
+
     submit = SubmitField('Přidat kategorii')
