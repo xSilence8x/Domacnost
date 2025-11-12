@@ -6,6 +6,8 @@
     {% if items %}
         <div class="card">
             <p class="text-secondary mb-1">Toto je váš nákupní seznam – položky, jejichž množství kleslo pod vámi nastavený limit.</p>
+            
+            <!-- Desktop Table -->
             <table>
                 <thead>
                     <tr>
@@ -53,6 +55,52 @@
                     {% endfor %}
                 </tbody>
             </table>
+            
+            <!-- Mobile Cards -->
+            {% for item in items %}
+                <div class="mobile-card">
+                    <div class="mobile-card-row">
+                        <span class="mobile-card-label">Kategorie</span>
+                        <span class="mobile-card-value">
+                            <a href="{{ url_for('main.kategorie_detail', cat_id=item.kategorie_id) }}" 
+                               class="category-badge"
+                               style="background-color: {{ item.kategorie.color_hex }}20; 
+                                      color: {{ item.kategorie.color_hex }}; 
+                                      border-color: {{ item.kategorie.color_hex }}80;">
+                                {{ item.kategorie.nazev }}
+                            </a>
+                        </span>
+                    </div>
+                    <div class="mobile-card-row">
+                        <span class="mobile-card-label">Produkt</span>
+                        <span class="mobile-card-value"><strong>{{ item.nazev }}</strong></span>
+                    </div>
+                    <div class="mobile-card-row">
+                        <span class="mobile-card-label">Stav</span>
+                        <span class="mobile-card-value">
+                            <span class="badge badge-low">
+                                {{ item.get_stav() }}
+                            </span>
+                        </span>
+                    </div>
+                    <div class="mobile-card-row">
+                        <span class="mobile-card-label">Množství</span>
+                        <span class="mobile-card-value">
+                            <strong>{{ "%.2f"|format(item.mnozstvi_v_baleni) }}</strong> / 
+                            <span class="text-secondary">{{ "%.2f"|format(item.minimum_pro_upozorneni) }}</span>
+                        </span>
+                    </div>
+                    <div class="mobile-card-row">
+                        <span class="mobile-card-label">Popis</span>
+                        <span class="mobile-card-value">{{ item.popis_balení or '--' }}</span>
+                    </div>
+                    <div class="mobile-card-actions">
+                        <a href="{{ url_for('inventory.edit_item', item_id=item.id) }}" class="btn btn-secondary">
+                            Upravit stav
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     {% else %}
         <div class="alert alert-success">

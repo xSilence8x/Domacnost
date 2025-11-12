@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ title }} ({{ users|length }})</h2>
+    <p class="text-secondary mb-1">Seznam všech členů, kteří mají přístup do této domácnosti.</p>
+
+    <div class="card">
+        <ul style="list-style: none; padding-left: 0;">
+        {% for user in users %}
+            <li style="background: var(--bg-main); padding: 1.25rem; border-radius: 12px; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                
+                <div>
+                    <strong style="font-size: 1.25rem; color: var(--text-primary);">
+                        {{ user.username }}
+                    </strong>
+                    <br>
+                    <span class="text-secondary">{{ user.polozky.count() }} přidaných položek</span>
+                </div>
+                
+                <div>
+                    {% if user == current_user %}
+                        <span class="badge badge-high">To jste vy</span>
+                    {% endif %}
+                </div>
+
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

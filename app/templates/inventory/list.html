@@ -5,6 +5,7 @@
     
     {% if items %}
         <div class="card">
+            <!-- Desktop Table -->
             <table>
                 <thead>
                     <tr>
@@ -52,6 +53,52 @@
                     {% endfor %}
                 </tbody>
             </table>
+            
+            <!-- Mobile Cards -->
+            {% for item in items %}
+                <div class="mobile-card">
+                    <div class="mobile-card-row">
+                        <span class="mobile-card-label">Kategorie</span>
+                        <span class="mobile-card-value">
+                            <a href="{{ url_for('main.kategorie_detail', cat_id=item.kategorie_id) }}" 
+                               class="category-badge"
+                               style="background-color: {{ item.kategorie.color_hex }}20; 
+                                      color: {{ item.kategorie.color_hex }}; 
+                                      border-color: {{ item.kategorie.color_hex }}80;">
+                                {{ item.kategorie.nazev }}
+                            </a>
+                        </span>
+                    </div>
+                    <div class="mobile-card-row">
+                        <span class="mobile-card-label">Produkt</span>
+                        <span class="mobile-card-value"><strong>{{ item.nazev }}</strong></span>
+                    </div>
+                    <div class="mobile-card-row">
+                        <span class="mobile-card-label">Stav</span>
+                        <span class="mobile-card-value">
+                            <span class="badge {{ 'badge-low' if item.dochazi() else 'badge-high' }}">
+                                {{ item.get_stav() }}
+                            </span>
+                        </span>
+                    </div>
+                    <div class="mobile-card-row">
+                        <span class="mobile-card-label">Limit</span>
+                        <span class="mobile-card-value">{{ "%.2f"|format(item.minimum_pro_upozorneni) }}</span>
+                    </div>
+                    <div class="mobile-card-row">
+                        <span class="mobile-card-label">Popis</span>
+                        <span class="mobile-card-value">{{ item.popis_balení or '--' }}</span>
+                    </div>
+                    <div class="mobile-card-actions">
+                        <a href="{{ url_for('inventory.edit_item', item_id=item.id) }}" class="btn btn-secondary">Upravit</a>
+                        <form method="POST" action="{{ url_for('inventory.delete_item', item_id=item.id) }}" style="flex: 1;">
+                            <button type="submit" onclick="return confirm('Opravdu chcete smazat tuto položku?')" class="btn btn-danger" style="width: 100%;">
+                                Smazat
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     {% else %}
         <div class="alert alert-info">

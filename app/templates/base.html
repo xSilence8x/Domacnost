@@ -16,17 +16,21 @@
     <header>
         <nav>
             <a href="{{ url_for('main.low_stock') }}" class="logo">Domácnost</a>
-            <ul>
+            
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <ul id="navMenu">
                 {% if current_user.is_authenticated %}
                     <li><a href="{{ url_for('main.low_stock') }}">Dochází</a></li>
                     <li><a href="{{ url_for('main.all_inventory') }}">Všechny zásoby</a></li>
                     <li><a href="{{ url_for('inventory.add_item') }}">Přidat zásobu</a></li>
                     <li><a href="{{ url_for('inventory.manage_categories') }}">Kategorie</a></li>
-                {% endif %}
-            </ul>
-            <ul>
-                {% if current_user.is_authenticated %}
-                     <li><a href="{{ url_for('auth.logout') }}">Odhlásit se ({{ current_user.username }})</a></li>
+                    <li><a href="{{ url_for('auth.users') }}">Uživatelé domácnosti</a></li>
+                    <li><a href="{{ url_for('auth.logout') }}">Odhlásit se ({{ current_user.username }})</a></li>
                 {% else %}
                     <li><a href="{{ url_for('auth.register') }}">Registrace</a></li>
                     <li><a href="{{ url_for('auth.login') }}">Přihlášení</a></li>
@@ -50,6 +54,31 @@
 
         {% block content %}{% endblock %}
     </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-text">
+                Vytvořeno s <span class="footer-heart">♥</span> pomocí AI asistentů
+            </div>
+            <div class="footer-team">
+                <span class="footer-badge">Claude</span>
+                <span class="footer-badge">Gemini</span>
+                <a href="https://mar6wen8.github.io/MarWen" target="_blank" class="footer-badge">Marwen Team</a>
+            </div>
+            <div class="footer-text">
+                © 2025 Domácnost • Správa zásob pro vaši domácnost
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            menu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+    </script>
 
 </body>
 </html>

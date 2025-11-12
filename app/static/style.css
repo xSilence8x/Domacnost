@@ -37,6 +37,12 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
 
 /* Container */
@@ -106,6 +112,35 @@ nav a::after {
 
 nav a:hover::after {
   width: 80%;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: var(--text-primary);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
 }
 
 /* Glass Card Effect */
@@ -219,6 +254,23 @@ textarea {
   transition: all 0.3s ease;
 }
 
+input[type="checkbox"] {
+  width: auto;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkbox-group label {
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
 input:focus,
 select:focus,
 textarea:focus {
@@ -233,6 +285,12 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
+  display: table;
+}
+
+/* Mobile Cards - hidden on desktop */
+.mobile-card {
+  display: none;
 }
 
 thead {
@@ -377,22 +435,166 @@ tbody tr:hover {
     padding: 1rem;
   }
   
+  /* Hamburger Menu Mobile */
+  .hamburger {
+    display: flex;
+  }
+  
+  nav {
+    flex-wrap: wrap;
+  }
+  
   nav ul {
+    display: none;
     flex-direction: column;
-    gap: 1rem;
+    width: 100%;
+    gap: 0;
+    margin-top: 1rem;
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 1rem;
+  }
+  
+  nav ul.active {
+    display: flex;
+  }
+  
+  nav ul li {
+    width: 100%;
+  }
+  
+  nav a {
+    display: block;
+    padding: 0.75rem;
+  }
+  
+  nav a::after {
+    display: none;
+  }
+  
+  /* Mobile Table as Cards */
+  table {
+    display: none;
+  }
+  
+  .mobile-card {
+    display: block;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .mobile-card-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .mobile-card-row:last-child {
+    border-bottom: none;
+  }
+  
+  .mobile-card-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+  
+  .mobile-card-value {
+    text-align: right;
+  }
+  
+  .mobile-card-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  
+  .mobile-card-actions .btn {
+    flex: 1;
+    font-size: 0.875rem;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mobile-card-actions form {
+    flex: 1;
+    display: flex;
+  }
+  
+  .mobile-card-actions form .btn {
+    width: 100%;
   }
   
   .grid {
     grid-template-columns: 1fr;
   }
-  
-  table {
-    font-size: 0.875rem;
-  }
-  
-  th, td {
-    padding: 0.5rem;
-  }
+}
+
+/* Footer */
+footer {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer-text {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.footer-team {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: rgba(99, 102, 241, 0.2);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 20px;
+  color: var(--primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer-badge:hover {
+  background: rgba(99, 102, 241, 0.3);
+  transform: translateY(-2px);
+}
+
+.footer-heart {
+  color: var(--secondary);
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
 /* Category Links with Colors */

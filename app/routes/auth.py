@@ -69,3 +69,15 @@ def logout():
     logout_user()
     flash('Byli jste odhlášeni.', 'info')
     return redirect(url_for('main.low_stock'))
+
+
+@auth_bp.route('/users')
+@login_required
+def users():
+    """Zobrazí seznam uživatelů domácnost."""
+
+    all_users = User.query.order_by(User.username).all()
+
+    return render_template('auth/users.html',
+                           title='Uživatelé domácnosti',
+                           users=all_users)
