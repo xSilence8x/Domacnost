@@ -1,49 +1,48 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>{{ title }}</h2>
-    <form method="POST" action="">
-        {{ form.hidden_tag() }}
-        
-        <div class="form-field">
-            {{ form.nazev.label }}<br>
-            {{ form.nazev(size=50) }}
-            {% for error in form.nazev.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
+    <div class="card grid-2">
+        <div>
+            <h2>{{ title }}</h2>
+            <p class="text-secondary">Zde můžete přidat novou položku do domácnosti nebo upravit její aktuální stav.</p>
         </div>
         
-        <div class="form-field">
-            {{ form.kategorie.label }}<br>
-            {{ form.kategorie() }}
-        </div>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            
+            <div class="form-group">
+                {{ form.nazev.label }}
+                {{ form.nazev() }} 
+                </div>
+            
+            <div class="form-group">
+                {{ form.kategorie.label }}
+                {{ form.kategorie() }}
+            </div>
 
-        <div class="form-field">
-            {{ form.mnozstvi_v_baleni.label }}<br>
-            {{ form.mnozstvi_v_baleni(size=5) }}
-            <p style="font-size: small; color: #666;">1.0 = celé, 0.5 = polovina, 0.0 = spotřebováno.</p>
-            {% for error in form.mnozstvi_v_baleni.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </div>
+            <div class="grid grid-2">
+                <div class="form-group">
+                    {{ form.mnozstvi_v_baleni.label }}
+                    {{ form.mnozstvi_v_baleni() }}
+                    <p class="text-secondary" style="font-size: 0.875rem; margin-top: 0.5rem;">
+                        Např. 3.0 = 3 celá balení, 2.5 = 2 celá a 1 poloviční.
+                    </p>
+                </div>
+                <div class="form-group">
+                    {{ form.minimum_pro_upozorneni.label }}
+                    {{ form.minimum_pro_upozorneni() }}
+                     <p class="text-secondary" style="font-size: 0.875rem; margin-top: 0.5rem;">
+                        Např. 1.0 = upozornit při načnutí posledního balení.
+                    </p>
+                </div>
+            </div>
 
-        <div class="form-field">
-            {{ form.minimum_pro_upozorneni.label }}<br>
-            {{ form.minimum_pro_upozorneni(size=5) }}
-            <p style="font-size: small; color: #666;">Při jaké hodnotě (např. 0.25) se má položka označit jako docházející.</p>
-            {% for error in form.minimum_pro_upozorneni.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </div>
-
-        <div class="form-field">
-            {{ form.popis_baleni.label }}<br>
-            {{ form.popis_baleni(size=50) }}
-            {% for error in form.popis_baleni.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </div>
-        
-        {{ form.submit() }}
-    </form>
+            <div class="form-group">
+                {{ form.popis_baleni.label }}
+                {{ form.popis_baleni() }}
+            </div>
+            
+            {{ form.submit(class="btn btn-primary mt-1") }}
+        </form>
+    </div>
 {% endblock %}
