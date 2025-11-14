@@ -32,7 +32,13 @@
                 {% for kategorie in kategorie_list %}
                     <li style="background: var(--bg-main); padding: 1rem; border-radius: 12px; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;">
                         <div>
-                            <strong>{{ kategorie.nazev }}</strong>
+                            <a href="{{ url_for('main.kategorie_detail', cat_id=kategorie.id) }}" 
+                               class="category-badge"
+                               style="background-color: {{ kategorie.color_hex }}20; 
+                                      color: {{ kategorie.color_hex }}; 
+                                      border-color: {{ kategorie.color_hex }}80;">
+                                {{ kategorie.nazev }}
+                            </a>
                             <span class="text-secondary">({{ kategorie.polozky.count() }} položek)</span>
                         </div>
                         

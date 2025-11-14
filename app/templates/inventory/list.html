@@ -38,7 +38,7 @@
                             </td>
                             
                             <td>{{ "%.2f"|format(item.minimum_pro_upozorneni) }}</td>
-                            <td>{{ item.popis_balení or '--' }}</td>
+                            <td>{{ item.popis_baleni or '--' }}</td>
                             <td>
                                 <div class="action-buttons">
                                     <a href="{{ url_for('inventory.edit_item', item_id=item.id) }}" class="btn btn-secondary">Upravit</a>
